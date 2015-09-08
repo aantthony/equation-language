@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+'use strict'
+
+process.title = 'equation'
+var readline = require('node-color-readline')
+var chalk = require('chalk')
+var Context = require('../')
+var colorize = require('./colorize')
+var context = new Context()
+chalk.enabled = true
+
+if (require.main === module) { main() }
+
+function main () {
+  var i = 1
+  var input = process.stdin
+  var output = process.stderr
+
+  function exec (cmd) {
+    var expr = context.eval(cmd)
+    output.write(expr.dump())
+    output.write('\n')
+    i++
+  }
+
+  var rl = readline.createInterface({
+    input: input,
+    output: output,
+    colorize: function (str) {
+      return colorize(str, context)
+    }
+  })
+
+  rl.on('line', function (cmd) {
+    exec(cmd)
+    rl.prompt()
+  })
+
+  rl.prompt()
+}

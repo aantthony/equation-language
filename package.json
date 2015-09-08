@@ -1,0 +1,65 @@
+{
+  "name": "javascript-cas",
+  "version": "3.0.10",
+  "author": "Anthony Foster <hi@af.id.au>",
+  "main": "lib/index.js",
+  "browserify": "dist/math.js",
+  "description": "Computer Algebra System",
+  "contributors": [
+    "aantthony <hi@af.id.au>"
+  ],
+  "scripts": {
+    "build-grammar": "jison ./grammar/syntax.jison -o ./grammar/syntax.out.js -m commonjs",
+    "build-doc": "mkdir -p out; cp node_modules/spec-md/css/* out; spec-md doc/index.md > out/index.html",
+    "lint": "eslint --ignore-path .gitignore .",
+    "test": "mocha -r test/support/env test/index && ([[ -z $TRAVIS_JOB_ID ]] || npm run travis)",
+    "test-debug": "mocha -r test/support/env --debug-brk test/index",
+    "coverage": "mkdir -p coverage && mocha -r blanket -r test/support/env -R html-cov test/index > coverage/index.html",
+    "travis": "mocha -r blanket -r test/support/env -R mocha-lcov-reporter test/index | coveralls"
+  },
+  "homepage": "http://af.id.au/javascript-cas/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aantthony/javascript-cas.git"
+  },
+  "keywords": [
+    "math",
+    "algebra",
+    "CAS",
+    "logic"
+  ],
+  "standard": {
+    "ignore": [
+      "grammar/syntax.out.js"
+    ]
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.11"
+  },
+  "devDependencies": {
+    "blanket": "^1.1.7",
+    "coveralls": "^2.11.3",
+    "expect": "^1.8.0",
+    "jison": "^0.4.15",
+    "mocha": "^2.2.5",
+    "mocha-lcov-reporter": "0.0.2",
+    "spec-md": "^0.4.5",
+    "standard": "^5.1.1",
+    "standard-format": "^1.6.7"
+  },
+  "bugs": {
+    "url": "https://github.com/aantthony/javascript-cas/issues"
+  },
+  "bin": {
+    "javascript-cas": "./bin/repl"
+  },
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "node-color-readline": "^1.0.0"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  }
+}
