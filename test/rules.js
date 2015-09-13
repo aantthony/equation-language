@@ -9,8 +9,8 @@ before(function () {
 })
 
 it('shold not replace non-matches on symbols', function () {
-  var replace = new Expression.Symbol('Replace')
-  var ruleDelayed = new Expression.Symbol('RuleDelayed')
+  var replace = Context.builtin.Replace
+  var ruleDelayed = Context.builtin.RuleDelayed
   var x = new Expression.Symbol('x')
   var y = new Expression.Symbol('y')
   var two = context.eval('2')
@@ -20,8 +20,8 @@ it('shold not replace non-matches on symbols', function () {
 })
 
 it('should replace symbols', function () {
-  var replace = new Expression.Symbol('Replace')
-  var ruleDelayed = new Expression.Symbol('RuleDelayed')
+  var replace = Context.builtin.Replace
+  var ruleDelayed = Context.builtin.RuleDelayed
   var two = context.eval('2')
   var x = context.eval('x')
   var rule = ruleDelayed(x, two)
@@ -49,26 +49,31 @@ it('should replace blanks with different symbols', function () {
 
 it('should replace exact symbols in addition pattern', function () {
   var expr = context.parse('Replace[x+y, x:_ + y:_ :> 2]')
-  var result = expr.eval(context)
+  var result = expr.eval()
   expect(result.value).toBe('2')
 })
 
 it('should instantiate symbols matching addition pattern', function () {
   var expr = context.parse('Replace[a+b, x:_ + y:_ :> Sin[x, y]]')
-  var result = expr.eval(context)
+  var result = expr.eval()
   expect(result.at(0).symbolName).toBe('Sin')
   expect(result.at(1).symbolName).toBe('a')
   expect(result.at(2).symbolName).toBe('b')
-  expect(result.arguments().length).toBe(2)
+  expect(result.args().length).toBe(2)
 })
 
-it('should instantiate symbols matching addition pattern (stable)', function () {
+it('should instantiate symbols matching addition pattern (ordered)', function () {
   var expr = context.parse('Replace[b+a, x:_ + y:_ :> Sin[x, y]]')
-  var result = expr.eval(context)
+  var result = expr.eval()
   expect(result.at(0).symbolName).toBe('Sin')
-  expect(result.at(1).symbolName).toBe('b')
-  expect(result.at(2).symbolName).toBe('a')
-  expect(result.arguments().length).toBe(2)
+  expect(result.at(1).symbolName).toBe('a')
+  expect(result.at(2).symbolName).toBe('b')
+  expect(result.args().length).toBe(2)
+})
+
+it('should evaluate MatchQ', function () {
+  var expr = context.eval('MatchQ[a*b, Times[n_, x_]]')
+  expect(expr.def()).toBe(context.eval('True').def())
 })
 
 it('should work with OneIdentity attribute', function () {

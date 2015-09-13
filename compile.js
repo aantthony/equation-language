@@ -76,7 +76,6 @@ module.exports = function (expr, args) {
       if (d.javascript === undefined) throw new Error(symbol.symbolName + ' has no .javascript implementations set.')
       return define(d.javascript, symbol.symbolName)
     }
-
   }
 
   var str = compile(expr, define, get)

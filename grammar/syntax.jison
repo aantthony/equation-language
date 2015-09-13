@@ -1,21 +1,25 @@
 // When you modify this file, use `npm run build-grammar`
 %left ','
+%left '//'
+%left '/.'
 %left '->'
 %left ':>'
 %left '='
 %left '=='
-%left '/.'
 %left '+'
 %left '-'
-%left '@_'
 %right '@-'
 %right '@+'
 %left '*'
+%left '.'
 %left '/'
 %left '[' ']'
 %left '(' ')'
 %left '{' '}'
 %right DEFAULT
+%left ':'
+%left '@_'
+%left '@_.'
 %left '"'
 %left '^'
 %left '||'
@@ -28,8 +32,8 @@
 %right '=>'
 %left '@-'
 %left '?'
-%left ':'
 %left '@:_'
+%left '@:_.'
 %right '!'
 %right '%'
 %left '_'
@@ -61,25 +65,29 @@ e
     | e '<=' e           -> ['<=', $1, $3]
     | e '<' e            -> ['<', $1, $3]
     | e '>' e            -> ['>', $1, $3]
+    | e '/.' e           -> ['default', 'ReplaceAll', ['[', $1, $3]]
+    | e '//' e           -> ['default', $3, ['[', $1]]
     | e '||' e           -> ['||', $1, $3]
     | e '&&' e           -> ['&&', $1, $3]
     | e '>=' e           -> ['>=', $1, $3]
     | e '=>' e           -> ['=>', $1, $3]
     | e '+' e            -> ['+', $1, $3]
     | e '-' e            -> ['+', $1, ['*', {number: '-1'}, $3]]
+    | e '.' e            -> ['*', $1, $3]
     | e '*' e            -> ['*', $1, $3]
-    | e '/.' e           -> ['/.', $1, $3]
     | e '->' e           -> ['->', $1, $3]
     | e ':>' e           -> [':>', $1, $3]
     | e ':' e            -> [':', $1, $3]
     | e '/' e            -> ['*', $1, ['^', $3, {number: '-1'}]]
     | e '_' e            -> ['_', $1, $3]
-    | e '@:_'             -> [':', $1, ['default', 'Blank', ['[']]]
+    | e '@:_'            -> [':', $1, ['default', 'Blank', ['[']]]
+    | e '@:_.'           -> [':', $1, ['default', 'Optional', ['[', ['default', 'Blank', ['[']]]]]
     | e '^' e            -> ['^', $1, $3]
     | e '!'              -> ['!', $1]
     | '@-' e             -> ['*', {number: '-1'}, $2]
     | '@+' e             -> ['+', $2]
     | '@_'               -> ['default', 'Blank', ['[']]
+    | '@_.'              -> ['default', 'Optional', ['[', ['default', 'Blank', ['[']]]]
     | e e %prec DEFAULT  -> ['default', $1, $2]
     | VECTOR -> $1
     | MULTISET -> $1

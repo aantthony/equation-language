@@ -41,3 +41,6 @@ var x = fn(3.1) // Returns a javascript number.
 - Vectors (dot products, cross products, gradient/curl etc).
 - Finding roots (intersections) (Not yet implemented)
 - Finding singularities (Not yet implemented)
+
+
+https://chrome.google.com/webstore/detail/graphtk/nkhkaamdeplibnmodcgodlkghphdbahk?utm_source=chrome-ntp-launcher

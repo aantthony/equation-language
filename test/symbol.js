@@ -27,12 +27,13 @@ it('should have recursive .head()', function () {
 it('should bind to symbols', function () {
   var context = new Context()
   var sine = new Definition()
-  var x = context.eval('x', {x: sine})
-  var Symbol = new Expression.Symbol('Symbol')
-  expect(x.head().def(context) === Symbol.def(context)).toBe(true)
+  var SymbolDefinition = Context.builtin.Symbol
+  context.set('x', sine)
+  var x = context.eval('x')
+  expect(x.head().def(context)).toBe(SymbolDefinition)
   expect(x.symbolName).toBe('x')
 
-  var unbounded = context.eval('y', {x: sine})
-  expect(unbounded.head().def(context)).toBe(Symbol.def(context))
+  var unbounded = context.eval('y')
+  expect(unbounded.head().def(context)).toBe(SymbolDefinition)
   expect(unbounded.symbolName).toBe('y')
 })
