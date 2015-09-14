@@ -1,11 +1,12 @@
 // When you modify this file, use `npm run build-grammar`
+%left '='
 %left ','
 %left '//'
 %left '/.'
 %left '//.'
 %left '->'
 %left ':>'
-%left '='
+%right '=>'
 %left '=='
 %left '+'
 %left '-'
@@ -17,12 +18,12 @@
 %left '[' ']'
 %left '(' ')'
 %left '{' '}'
+%left '^'
 %right DEFAULT
 %left ':'
 %left '@_'
 %left '@_.'
 %left '"'
-%left '^'
 %left '||'
 %left '&&'
 %left '!='
@@ -30,7 +31,6 @@
 %left '<='
 %left '>'
 %left '>='
-%right '=>'
 %left '@-'
 %left '?'
 %left '@:_'
@@ -73,7 +73,7 @@ e
     | e '||' e           -> ['||', $1, $3]
     | e '&&' e           -> ['&&', $1, $3]
     | e '>=' e           -> ['>=', $1, $3]
-    | e '=>' e           -> ['=>', $1, $3]
+    | ATOM '=>' e %prec '=>'       -> ['=>', $1, $3]
     | e '+' e            -> ['+', $1, $3]
     | e '-' e            -> ['+', $1, ['*', {number: '-1'}, $3]]
     | e '.' e            -> ['*', $1, $3]
