@@ -12,12 +12,20 @@ chalk.enabled = true
 if (require.main === module) { main() }
 
 function main () {
-  var i = 1
   var input = process.stdin
   var output = process.stderr
 
+  if (process.argv[2] === '-e') {
+    var expr = context.eval(process.argv.slice(3).join(' '))
+    output.write(expr.dump())
+    output.write('\n')
+    return
+  }
+  var i = 1
+
   function exec (cmd) {
     var expr = context.eval(cmd)
+    if (!expr) return
     output.write(expr.dump())
     output.write('\n')
     i++

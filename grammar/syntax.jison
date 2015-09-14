@@ -2,6 +2,7 @@
 %left ','
 %left '//'
 %left '/.'
+%left '//.'
 %left '->'
 %left ':>'
 %left '='
@@ -53,6 +54,7 @@
 expression
 //   : BUNCH EOF { return $1; }
     : e EOF { return $1; }
+    | EOF { return null; }
     ;
 
 e
@@ -66,6 +68,7 @@ e
     | e '<' e            -> ['<', $1, $3]
     | e '>' e            -> ['>', $1, $3]
     | e '/.' e           -> ['default', 'ReplaceAll', ['[', $1, $3]]
+    | e '//.' e          -> ['default', 'ReplaceRepeated', ['[', $1, $3]]
     | e '//' e           -> ['default', $3, ['[', $1]]
     | e '||' e           -> ['||', $1, $3]
     | e '&&' e           -> ['&&', $1, $3]

@@ -77,6 +77,6 @@ it('should evaluate MatchQ', function () {
 })
 
 it('should work with OneIdentity attribute', function () {
-  var expr = context.eval('MatchQ[x, Times[n_. , x_]]')
+  var expr = context.eval('MatchQ[x, x_n_.]')
   expect(expr.def()).toBe(context.eval('True').def())
 })
