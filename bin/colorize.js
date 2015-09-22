@@ -1,4 +1,4 @@
-var lex = require('../lib/expression/language/lex')
+var lex = require('../lib/language/string-to-ast/lex')
 var chalk = require('chalk')
 
 var COLORS = {
