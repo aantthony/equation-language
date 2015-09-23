@@ -134,7 +134,10 @@ break;
 case 18:
 this.$ = ['+', $$[$0-2], ['*', {number: '-1'}, $$[$0]]];
 break;
-case 19: case 20:
+case 19:
+this.$ = ['.', $$[$0-2], $$[$0]];
+break;
+case 20:
 this.$ = ['*', $$[$0-2], $$[$0]];
 break;
 case 21:
