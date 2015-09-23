@@ -15,8 +15,10 @@ function main () {
   var input = process.stdin
   var output = process.stderr
 
+  var vars = {}
+
   if (process.argv[2] === '-e') {
-    var expr = context.eval(process.argv.slice(3).join(' '))
+    var expr = context.eval(process.argv.slice(3).join(' '), vars)
     output.write(expr.dump())
     output.write('\n')
     return
@@ -24,8 +26,16 @@ function main () {
   var i = 1
 
   function exec (cmd) {
-    var expr = context.eval(cmd)
+    var expr = context.eval(cmd, vars)
     if (!expr) return
+    if (expr.head().def() === Context.builtin.Equal) {
+      var a = expr.args()[0]
+      if (a && a.head().def() === Context.builtin.Symbol) {
+        expr = expr.args()[1]
+        vars[a._value] = expr
+      }
+    }
+    vars['ans'] = expr
     output.write(expr.dump())
     output.write('\n')
     i++
