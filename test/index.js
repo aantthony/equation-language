@@ -6,6 +6,8 @@ global.Expression = CAS.Expression
 global.Context = CAS.Context
 global.Definition = CAS.Definition
 
+CAS.Definition.DEBUG_MODE = true
+
 function load (path) {
   describe(path, function () {
     require('./' + path)
