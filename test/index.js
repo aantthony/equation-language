@@ -1,5 +1,11 @@
 /* global describe */
 
+var CAS = require('../')
+
+global.Expression = CAS.Expression
+global.Context = CAS.Context
+global.Definition = CAS.Definition
+
 function load (path) {
   describe(path, function () {
     require('./' + path)
@@ -21,3 +27,5 @@ load('rules')
 
 // Functions
 load('compile-js')
+
+load('exprs')

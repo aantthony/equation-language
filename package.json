@@ -12,10 +12,10 @@
     "build-grammar": "jison ./grammar/syntax.jison -o ./grammar/syntax.out.js -m commonjs",
     "build-doc": "mkdir -p out; cp node_modules/spec-md/css/* out; spec-md doc/index.md > out/index.html",
     "lint": "standard",
-    "test": "mocha -r test/support/env test/index && ([[ -z $TRAVIS_JOB_ID ]] || npm run travis)",
-    "test-debug": "mocha -r test/support/env --debug-brk test/index",
-    "coverage": "mkdir -p coverage && mocha -r blanket -r test/support/env -R html-cov test/index > coverage/index.html",
-    "travis": "mocha -r blanket -r test/support/env -R mocha-lcov-reporter test/index | coveralls"
+    "test": "mocha test/index",
+    "test-debug": "mocha --debug-brk test/index",
+    "coverage": "mkdir -p coverage && mocha -r blanket -R html-cov test/index > coverage/index.html",
+    "travis": "mocha -r blanket -R mocha-lcov-reporter test/index | coveralls"
   },
   "homepage": "http://af.id.au/javascript-cas/",
   "repository": {
@@ -42,7 +42,7 @@
     "coveralls": "^2.11.3",
     "expect": "^1.8.0",
     "jison": "^0.4.15",
-    "mocha": "^2.2.5",
+    "mocha": "^2.3.3",
     "mocha-lcov-reporter": "0.0.2",
     "spec-md": "^0.4.5",
     "standard": "^5.1.1",

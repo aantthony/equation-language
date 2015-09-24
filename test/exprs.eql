@@ -1,0 +1,19 @@
+1 = 1
+0 = 0
+
+a = a
+
+a+b = a+b
+b+a = b+a
+
+MatchQ[a,a]
+MatchQ[a,a,True]
+MatchQ[a,a,1=1]
+
+1+0 = 1
+0+1 = 1
+2+0 = 2
+0+2 = 2
+
+0*x*y = 0
+x*0*y = 0
