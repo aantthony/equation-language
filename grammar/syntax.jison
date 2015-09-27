@@ -25,8 +25,8 @@
 %left '[' ']'
 %left '(' ')'
 %left '{' '}'
-%left '^'
 %right DEFAULT
+%left '^'
 %left ':'
 %left '@_'
 %left '@_.'
