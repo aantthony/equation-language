@@ -63,12 +63,12 @@ it('should instantiate symbols matching addition pattern', function () {
   expect(result.args().length).toBe(2)
 })
 
-it('should instantiate symbols matching addition pattern (ordered)', function () {
+it('should instantiate symbols matching addition pattern (not ordered)', function () {
   var expr = context.parse('Replace[b+a, x:_ + y:_ :> Sin[x, y]]')
   var result = expr.eval()
   expect(result.at(0)._value).toBe('Sin')
-  expect(result.at(1)._value).toBe('a')
-  expect(result.at(2)._value).toBe('b')
+  expect(result.at(1)._value).toBe('b')
+  expect(result.at(2)._value).toBe('a')
   expect(result.args().length).toBe(2)
 })
 
