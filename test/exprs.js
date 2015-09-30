@@ -9,6 +9,9 @@ before(function () {
 
 var exprs = require('fs').readFileSync(require.resolve('./exprs.eql'), 'utf8').split('\n')
 .filter(Boolean)
+.filter(function (expr) {
+  return !/^\/\//.test(expr)
+})
 
 function truthTest (expr) {
   var res = context.eval(expr)
