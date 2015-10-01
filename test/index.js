@@ -21,6 +21,7 @@ load('symbol')
 
 // Parser
 load('parser')
+load('latex')
 
 // Expression manipulation
 load('rules')
