@@ -24,7 +24,7 @@ function t (description, latex, code, scopegen) {
 t('should parse 3', '3', '3')
 // Requires a different lexer
 t('should imply products', 'xy', 'x*y')
-t('should imply multiplication', 'y=f\\left(x\\right)', 'y=Apply[f,x]')
+t('should imply multiplication', 'y=f\\left(x\\right)', 'y=ApplyLatex[f,x]')
 // it could modify the code AST and iterate through `Times` calls
 // Probably better for things like y=\\sin
 t('should parse sin', 'y = \\sin x', 'y = Sin[x]')
@@ -50,9 +50,9 @@ t('should handle long sine arguments', '\\cos20u+\\sin y', 'Cos[20u]+Sin[y]')
 // t('should handle log base 10', '\\log_{10}x', 'LogN[10,x]')
 t('should handle log', '\\log x', 'Log[x]')
 t('should handle spaces in log', '\\log\ x', 'Log[x]')
-// t('should handle derivatives', '\\frac{d}{dx}\\left(x^2\\right)', 'D[x^2, x]')
-// t('should handle derivatives of adjacents expressions', '\\frac{d}{dx}x^2+y', 'D[x^2,x] + y')
+t('should handle derivatives', '\\frac{d}{dx}\\left(x^2\\right)', 'D[x^2, x]')
+// t('should handle derivatives of adjacent expressions', '\\frac{d}{dx}x^2+y', 'D[x^2,x] + y')
 t('should handle postfix factorial operator', 'x!', 'Factorial[x]')
 t('should handle the gamma operator', '\\Gamma\\left(x\\right)', 'Gamma[x]')
-t('should imply multiplication (?)', '(x)(y)', 'Apply[x,y]')
-t('should imply function calls', 'y=f\\left(x\\right)', 'y=Apply[f,x]')
+t('should imply multiplication (?)', '(x)(y)', 'ApplyLatex[x,y]')
+t('should imply function calls', 'y=f\\left(x\\right)', 'y=ApplyLatex[f,x]')
