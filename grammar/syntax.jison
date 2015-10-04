@@ -22,10 +22,12 @@
 %left '*'
 %left '.'
 %left '/'
+%left '@['
 %left '[' ']'
 %left '(' ')'
 %left '{' '}'
 %right DEFAULT
+%left '::'
 %left '^'
 %left ':'
 %left '@_'
@@ -39,6 +41,7 @@
 %right '%'
 %left '_'
 %left VECTOR
+%left FNCALL
 %left MULTISET
 %left NUMBER
 %left STRING
@@ -91,9 +94,11 @@ e
     | '@+' e             -> ['+', $2]
     | '@_'               -> ['default', 'Blank', ['[']]
     | '@_.'              -> ['default', 'Optional', ['[', ['default', 'Blank', ['[']]]]
+    | e '::' e           -> ['default', $1, ['[', $3]]
     | e e %prec DEFAULT  -> ['default', $1, $2]
-    | VECTOR -> $1
+    | e FNCALL -> ['default', $1, $2]
     | MULTISET -> $1
+    | VECTOR -> $1
     | ATOM -> $1
     | '"' STRING '"' -> {string: $2};
     | '"' '"' -> {string: ''};
@@ -105,11 +110,18 @@ ATOM
     | NUMBER                            -> {number: $1}
     ;
 
-VECTOR
+FNCALL
     : '[' CSL ']' -> ['['].concat($2)
     | '[' e ']'   -> ['[', $2]
     | '[' ']'   -> ['[']
     ;
+
+VECTOR
+    : '@[' CSL ']' -> ['['].concat($2)
+    | '@[' e ']'   -> ['[', $2]
+    | '@[' ']'   -> ['[']
+    ;
+
 
 MULTISET
     : '{' CSL '}' -> ['{'].concat($2)

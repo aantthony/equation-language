@@ -13,6 +13,14 @@ MatchQ[a,a,True]
 MatchQ[a,a,1=1]
 MatchQ[f[x][x], f[x][x]]
 
+// Parser
+f[x] = Expression[f, [x]]
+[x] = List[x]
+3*[x] = Times[3, List[x]]
+f[x]*y = Times[f[x], y]
+f[x]+y = Plus[f[x], y]
+f[x] y = Times[f[x], y]
+
 1+0 = 1
 0+1 = 1
 2+0 = 2
