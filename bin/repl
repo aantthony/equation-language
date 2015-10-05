@@ -41,6 +41,9 @@ function main () {
         vars[a._value] = expr
       }
     }
+    Object.keys(expr.unbound).forEach(function (k) {
+      vars[k] = expr.unbound[k]
+    })
     vars['ans'] = expr
     output.write(expr.dump())
     output.write('\n')
