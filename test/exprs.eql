@@ -8,6 +8,11 @@ f[x]=f[x]
 a+b = a+b
 b+a = b+a
 
+Sort[[x,3]] = Sort[[3,x]]
+
+x+3 = 3+x
+3+x = x+3
+
 MatchQ[a,a]
 MatchQ[a,a,True]
 MatchQ[a,a,1=1]
