@@ -111,3 +111,28 @@ Not[FiniteQ[1/0]]
 Not[FiniteQ[1/x]] = (x=0)
 Not[FiniteQ[0/0]]
 Not[FiniteQ[x/0]]
+
+E > 0
+Pi > 0
+Pi > E
+Pi > 3.141
+Pi < 3.142
+E^0 = 1
+Pi^0 = 1
+IntegerQ[5]
+Not[IntegerQ[5.2]]
+ArcTan[0] = 0
+ArrayDepth[[0]] = 1
+ArrayWithoutLast[[x,y,z]] = [x,y]
+
+At[[x],0]=x
+Exp[x] = E^x
+Im[I] = 1
+(Im[x*I] /. Re[x] :> 0) = 0
+Re[x+I]=Re[x]
+x = x
+
+(Im[x*I] /. Re[x] :> 0) = 0
+N[ComplexPolar[2^x] /. x:> 4] = [16,0]
+At[ComplexPolar[Sqrt[-1]],0] = 1
+At[ComplexPolar[Sqrt[-1]],1] = Pi * 0.5
